@@ -16,9 +16,9 @@ This one was a doozy with an appropriate difficulty rating of "Insane". Accessin
   - [Creating a tunnel to receive LDAP traffic](#creating-a-tunnel-to-receive-ldap-traffic)
 - [Target #3: SERVER1](#target-3-server1)
   - [Privilege Escalation](#privilege-escalation-1)
-- [Movement throughout the domain](#movement-throughout-the-domain)
+  - [Movement throughout the domain](#movement-throughout-the-domain)
 - [Target 4: SERVER2](#target-4-server2)
-- [Privilege Escalation](#privilege-escalation-2)
+  - [Privilege Escalation](#privilege-escalation-2)
 - [Target #5: ai.vanchat.loc's DC](#target-5-aivanchatlocs-dc)
   - [Creating a tunnel within a tunnel](#creating-a-tunnel-within-a-tunnel)
   - [Pwning the ai.vanchat.loc domain](#pwning-the-aivanchatloc-domain)
@@ -139,7 +139,7 @@ Running WinPEAS shows that the user has the registry `HKLM:\SOFTWARE\Policies\Mi
 
 ![enter image description here](/assets/img/aoc2025/hoppers-origins/SERVER1_pwn.png)
 
-# Movement throughout the domain
+## Movement throughout the domain
 So we have local admin on a domain joined machine. The next move now is to gather more credentials. Even though we're administrator, that doesn't mean we can just go grabbing whatever credentials we want. We need to first use Psexec from sysinternals to launch a command prompt as system with `./psexec64.exe -accepteula -s -i 'cmd.exe'` and then running mimikatz which will run it as SYSTEM and bypass any restrictions that it may run into.
 
 ![enter image description here](/assets/img/aoc2025/hoppers-origins/server1_mimikatz.png)
@@ -156,7 +156,7 @@ Bloodhound once again shows no interesting outbound control or permissions for t
 
 We're able to RDP in to server2 with the new credentials! As it turns out, Brian is a member of the BUILTIN\Remote Management Users group on Server2 which means we can access an administrative shell using winrm using his creds. Sure enough, using `evil-winrm -i 10.200.171.102 -u qw1.brian.singh -p '_4v41yVd$!DW'` we can get cli access as qw1.brian.singh with some interesting permissions. SeBackupPrivileges gives us access to the local file system and SeDebugPrivilege gives us access to system memory.
 
-# Privilege Escalation
+## Privilege Escalation
 
 ![](/assets/img/aoc2025/hoppers-origins/server2_winrm.png)
 

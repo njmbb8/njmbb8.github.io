@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-01-11T18:27:52-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nate McGraw’s Security Blog</title><subtitle>Cybersecurity Writeups by Nate McGraw</subtitle><entry><title type="html">Advent of Cyber 2025 Sidequest 0: Hopper’s Origins</title><link href="http://localhost:4000/2026/01/11/hoppers-origins.html" rel="alternate" type="text/html" title="Advent of Cyber 2025 Sidequest 0: Hopper’s Origins" /><published>2026-01-11T00:00:00-05:00</published><updated>2026-01-11T00:00:00-05:00</updated><id>http://localhost:4000/2026/01/11/hoppers-origins</id><content type="html" xml:base="http://localhost:4000/2026/01/11/hoppers-origins.html"><![CDATA[<p>This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-01-11T18:58:14-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Nate McGraw’s Security Blog</title><subtitle>Cybersecurity Writeups by Nate McGraw</subtitle><entry><title type="html">Advent of Cyber 2025 Sidequest 0: Hopper’s Origins</title><link href="http://localhost:4000/2026/01/11/hoppers-origins.html" rel="alternate" type="text/html" title="Advent of Cyber 2025 Sidequest 0: Hopper’s Origins" /><published>2026-01-11T00:00:00-05:00</published><updated>2026-01-11T00:00:00-05:00</updated><id>http://localhost:4000/2026/01/11/hoppers-origins</id><content type="html" xml:base="http://localhost:4000/2026/01/11/hoppers-origins.html"><![CDATA[<p>This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains.</p>
 
 <ul>
   <li><a href="#gaining-access-to-the-room">Gaining Access to the Room</a></li>
@@ -19,11 +19,14 @@
   <li><a href="#target-3-server1">Target #3: SERVER1</a>
     <ul>
       <li><a href="#privilege-escalation-1">Privilege Escalation</a></li>
+      <li><a href="#movement-throughout-the-domain">Movement throughout the domain</a></li>
     </ul>
   </li>
-  <li><a href="#movement-throughout-the-domain">Movement throughout the domain</a></li>
-  <li><a href="#target-4-server2">Target 4: SERVER2</a></li>
-  <li><a href="#privilege-escalation-2">Privilege Escalation</a></li>
+  <li><a href="#target-4-server2">Target 4: SERVER2</a>
+    <ul>
+      <li><a href="#privilege-escalation-2">Privilege Escalation</a></li>
+    </ul>
+  </li>
   <li><a href="#target-5-aivanchatlocs-dc">Target #5: ai.vanchat.loc’s DC</a>
     <ul>
       <li><a href="#creating-a-tunnel-within-a-tunnel">Creating a tunnel within a tunnel</a></li>
@@ -150,7 +153,7 @@ Final times for host: srtt: 103143 rttvar: 2898  to: 114735
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/SERVER1_pwn.png" alt="enter image description here" /></p>
 
-<h1 id="movement-throughout-the-domain">Movement throughout the domain</h1>
+<h2 id="movement-throughout-the-domain">Movement throughout the domain</h2>
 <p>So we have local admin on a domain joined machine. The next move now is to gather more credentials. Even though we’re administrator, that doesn’t mean we can just go grabbing whatever credentials we want. We need to first use Psexec from sysinternals to launch a command prompt as system with <code class="language-plaintext highlighter-rouge">./psexec64.exe -accepteula -s -i 'cmd.exe'</code> and then running mimikatz which will run it as SYSTEM and bypass any restrictions that it may run into.</p>
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/server1_mimikatz.png" alt="enter image description here" /></p>
@@ -167,7 +170,7 @@ Final times for host: srtt: 103143 rttvar: 2898  to: 114735
 
 <p>We’re able to RDP in to server2 with the new credentials! As it turns out, Brian is a member of the BUILTIN\Remote Management Users group on Server2 which means we can access an administrative shell using winrm using his creds. Sure enough, using <code class="language-plaintext highlighter-rouge">evil-winrm -i 10.200.171.102 -u qw1.brian.singh -p '_4v41yVd$!DW'</code> we can get cli access as qw1.brian.singh with some interesting permissions. SeBackupPrivileges gives us access to the local file system and SeDebugPrivilege gives us access to system memory.</p>
 
-<h1 id="privilege-escalation-2">Privilege Escalation</h1>
+<h2 id="privilege-escalation-2">Privilege Escalation</h2>
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/server2_winrm.png" alt="" /></p>
 
