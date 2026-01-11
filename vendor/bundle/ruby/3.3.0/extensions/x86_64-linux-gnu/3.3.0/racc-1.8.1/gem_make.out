@@ -1,0 +1,18 @@
+current directory: /home/kali/blog/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+/usr/bin/ruby3.3 -I/usr/lib/ruby/vendor_ruby extconf.rb
+creating Makefile
+
+current directory: /home/kali/blog/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260111-1081031-ofrmzm sitelibdir\=./.gem.20260111-1081031-ofrmzm clean
+
+current directory: /home/kali/blog/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260111-1081031-ofrmzm sitelibdir\=./.gem.20260111-1081031-ofrmzm
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/kali/blog/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260111-1081031-ofrmzm sitelibdir\=./.gem.20260111-1081031-ofrmzm install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20260111-1081031-ofrmzm/racc
+
+current directory: /home/kali/blog/vendor/bundle/ruby/3.3.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260111-1081031-ofrmzm sitelibdir\=./.gem.20260111-1081031-ofrmzm clean
