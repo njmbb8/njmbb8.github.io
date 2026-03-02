@@ -3,6 +3,11 @@ title: "Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up 
 author: "Nate McGraw" 
 ---
 
+- [Creating a virtual network for the AD environment:](#creating-a-virtual-network-for-the-ad-environment)
+- [Creating the Firewall VM:](#creating-the-firewall-vm)
+- [Configure the firewall](#configure-the-firewall)
+
+
 I finished the course material for Zero Point Security's CRTO and wanted an opportunity to practice the techniques outside of the timed labs provided through the course. As a penetration tester, I also want to fully understand how these vulnerabilties are introduced and what can be done to solve them. To accomplish these tasks, I'm going to be creating a virtual AD lab to practice and understand the vulnerabilties on a deeper level than the already deep coverage provieded in the course.
 
 I'm going to be using KVM and virt-manager on Linux Mint to handle virtualization. The network AD environment will expand as I go but the current plan uses Windows Server 2025 and Windows 11 machines to mimick an enterprise AD environment. I'll introduce vulnerabiltiies covered in the course such as Kerberoasting and Delegation Abuse. I'm also going to be adding vulnerabilities to practice ESC stle ADCS abuses.
@@ -30,6 +35,8 @@ For the rest of the settings, I gave it 2 CPU cores, 4096 MB of memory, and 20 G
 ![](/assets/img/ad_lab/fw_settings.png)
 
 You should now be presented with a configuration screen for the VM. Click "Add Hardware", then select "Network" on the sidebar, change the network to the one you just created, and the nclick "Begin Installation". At this point, you can just let the installer run. There is an opportunity to halt set up and configure it manually but for the sake of making the guide easy to follow, we'll do all of that once the machine is up and running.
+
+# Configure the firewall
 
 Once you are presented with a logon, use the default credentials of `installer:opnsense`, select the correct keyboard for your setup, install ZFS, change the root password, and reboot the machine. Once the machine comes back up, login as root with the password you just set up, select option 1 to assign interfaces because the automatic setup almost certainly got it wrong. Set the WAN interface to the one that was automatically configured when the machine was set up and set the LAN to the one you created. If you are unsure about which is which, you can go back to the configurations that were set by clicking the information button and the interface can be identified through its MAC address.
 
