@@ -1,6 +1,6 @@
 ---
-title: Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up a Firewall
-author: Nate McGraw 
+title: "Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up a Firewall"
+author: "Nate McGraw" 
 ---
 
 # Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up a Firewall
