@@ -3,21 +3,19 @@ title: "Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up 
 author: "Nate McGraw" 
 ---
 
-# Virtual Active Directory Lab for Pentest Practice Part Zero: Setting up a Firewall
-
 I finished the course material for Zero Point Security's CRTO and wanted an opportunity to practice the techniques outside of the timed labs provided through the course. As a penetration tester, I also want to fully understand how these vulnerabilties are introduced and what can be done to solve them. To accomplish these tasks, I'm going to be creating a virtual AD lab to practice and understand the vulnerabilties on a deeper level than the already deep coverage provieded in the course.
 
 I'm going to be using KVM and virt-manager on Linux Mint to handle virtualization. The network AD environment will expand as I go but the current plan uses Windows Server 2025 and Windows 11 machines to mimick an enterprise AD environment. I'll introduce vulnerabiltiies covered in the course such as Kerberoasting and Delegation Abuse. I'm also going to be adding vulnerabilities to practice ESC stle ADCS abuses.
 
 Having a vulnerable environment in my network could be a scary concept so I'll be using OPNSense as a firewall to cordon off the test AD and tightly control what comes into and out of the environemnt over the network. I'm going to skip setting up the virtualization management(KVM and virt-manager) as it is not that hard and, in my opinion, out of scope for this blog.
 
-## Creating a virtual network for the AD environment:
+# Creating a virtual network for the AD environment:
 
 The first thing that needs to be done is to create a virtual and isolated network for our AD. The firewall will be able to connect to the internet and determine what traffic is allowed through. In order to do that, it needs two interfaces(more on that in the next step) connected to both the WAN(internet) and the active directory LAN(if this were a company, it would be their internal network or intranet). In virt-manager, make sure that QEMU/KVM is selected and then click Edit-> "Connection Details". Click the plus button in the corner(it has an arow pointing to it in the screenshot) and then name your network, set it to an isolated type, give it an IP range and disable DHCP(the Domain controller will handle DHCP). The name and the IP range do not have to be the same as mine but the following screenshot s the settings that I am using.
 
 ![](/assets/img/ad_lab/network_cofig.png)
 
-## Creating the Firewall VM:
+# Creating the Firewall VM:
 
 Starting out, your virt-manager window should look something like mine. To start a new VM, click the "Create a new virtual machine" button that has an arrow pointing to it.
 
