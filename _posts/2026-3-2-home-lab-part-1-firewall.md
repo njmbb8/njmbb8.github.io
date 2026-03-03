@@ -18,7 +18,7 @@ Having a vulnerable environment in my network could be a scary concept so I'll b
 
 The first thing that needs to be done is to create a virtual and isolated network for our AD. The firewall will be able to connect to the internet and determine what traffic is allowed through. In order to do that, it needs two interfaces(more on that in the next step) connected to both the WAN(internet) and the active directory LAN(if this were a company, it would be their internal network or intranet). In virt-manager, make sure that QEMU/KVM is selected and then click Edit-> "Connection Details". Click the plus button in the corner(it has an arow pointing to it in the screenshot) and then name your network, set it to an isolated type, give it an IP range and disable DHCP(the Domain controller will handle DHCP). The name and the IP range do not have to be the same as mine but the following screenshot s the settings that I am using.
 
-![](/assets/img/ad_lab/network_cofig.png)
+![](/assets/img/ad_lab/network_config.png)
 
 # Creating the Firewall VM:
 
