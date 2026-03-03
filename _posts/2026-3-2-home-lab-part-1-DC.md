@@ -3,6 +3,13 @@ title: "Virtual Active Directory Lab for Pentest Practice Part One: Setting up a
 author: "Nate McGraw"
 ---
 
+- [Setting the VM up](#setting-the-vm-up)
+- [Installing Windows Server 2025](#installing-windows-server-2025)
+- [Quality of Life Improvements](#quality-of-life-improvements)
+- [Network settings](#network-settings)
+- [Creating the domain](#creating-the-domain)
+
+
 With the firewall set up, we can start working on building the Active Directory environment. Without a Domain Controller, there is no Active Directory so we'll start with setting up the domain controller and the domain.
 
 # Setting the VM up
