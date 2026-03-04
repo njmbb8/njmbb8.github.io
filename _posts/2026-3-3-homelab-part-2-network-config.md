@@ -3,6 +3,13 @@ title: "Virtual Active Directory Lab for Pentest Practice Part Two: Network Setu
 author: "Nate McGraw"
 ---
 
+- [Accessing the OPNSense web inteface](#accessing-the-opnsense-web-inteface)
+- [Configuration wizard](#configuration-wizard)
+- [Creating the Attacker VLAN](#creating-the-attacker-vlan)
+- [Connecting the Firewall to the New Lan](#connecting-the-firewall-to-the-new-lan)
+- [Creating a DMZ](#creating-a-dmz)
+
+
 # Accessing the OPNSense web inteface
 
 In the DC, open your OPNSense's IP address in your browser of choice and login with the root credentials that you created earlier. Once signed in, you should be greeted with a configuration wizard. If you are not, or you clicked away and need to get back to it, there is a wizard option in the sidebar.
@@ -47,6 +54,4 @@ Select OPT1 in the interfaces list in the sidebar and enable the interface, chan
 
 As I am trying to simulate an enterprise network, the DC should not be directly exposed to the WAN and the machines that are on the WAN should be on a separate subnet from the machines that are exposed to the WAN to limit an attacker's access in the event of a breach. Go ahead and repeat the steps obove to create another network and interface which will be labeled OPT2 in OPNSense.
 
-# Creating Firewall Rules
-
-The first rule that needs to be created is one allowing ping(ICMP) traffic between the simulated wan network and the dmz. This will allow our attacker machine to 
+The network now has the basic set up needed to practice most attacks for now. eventually, a subdomain and other domains will be added on different subnets to practise abusing domain trusts but what we have now is fine. With the networks set up and attached to the firewall, we'll be setting up firewall rules to create realistic attack surfaces.
