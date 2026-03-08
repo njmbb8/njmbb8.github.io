@@ -13,7 +13,7 @@ author: "Nate McGraw"
 - [Creating Firewall Rules for the DC's connectivity](#creating-firewall-rules-for-the-dcs-connectivity)
 
 
-After considering how to address this, I've decided that it would be best to make this its own post because anyone following along would still have a functional set up until this point. I was preparing to set up the networking on the Kali machine and realized that I had made an error: the gateway should be in its own VLAN because traffic to and from the gateway is unique, and it does not belong to the hackable.lan domain. 
+The guide started out with the gateway being a part of the internal ad network and IP range so that the web interface could be accessed from the DC. The gateway and firewall provide the same function for all of the networks so it really doesn't need to be in the same domain and ip range as any of the other devices.
 
 In this guide, we'll be creating a "management network" and put the firewall in it. Then we'll create firewall rules to restrict access to the web interface so that it can only be accessed from a VPN connection. The idea here is to have the host machine be able to access the web interface directly without needing to spin up another VM which is the current setup.
 
