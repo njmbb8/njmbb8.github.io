@@ -5,6 +5,7 @@ author: "Nate McGraw"
 
 - [Creating the Virtual Machine](#creating-the-virtual-machine)
 - [Quality of Life Upgrades](#quality-of-life-upgrades)
+- [Installing Sliver C2](#installing-sliver-c2)
 - [I made a mistake!](#i-made-a-mistake)
 
 
@@ -31,6 +32,14 @@ sudo systemctl start qemu-guest-agent spice-vdagent
 ```
 
 Once you reboot the computer, go to View ⇾ Scale Display ⇾ Always and check the box for "Auto Resize VM with Window". You should now be able to share your clipboard with the VM and the screen should adjust to the window resizing.
+
+# Installing Sliver C2
+
+In order to keep up to date with modern TTP's, I'm going to be using Sliver C2 in this lab. I would love to use Cobalt Strike but it's a little cost prohibitive.
+
+Sliver C2 is a popular and modern FOSS C2 that can handle BoFs like Cobal Strike can and has the same level of customization allowing you to create stealthy beacons.
+
+To install sliver, you can do so by running `curl https://sliver.sh/install|sudo bash`. If piping a random script from the internet into an privileged shell skeeves you out, good! feel free to check the script first or build from ource according to the directions provided by Bishop Fox.
 
 # I made a mistake!
 
