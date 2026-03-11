@@ -7,6 +7,13 @@ The Active directory network will follow a pretty typical lab setup with a vulne
 
 Before I create a vulnerable domain, I must make the domain controller and all the changes needed to do so(firewall rules, VM creation, etc.)
 
+- [Firewall Rules to Support the AD](#firewall-rules-to-support-the-ad)
+- [Creating the DC](#creating-the-dc)
+- [Promoting the Server to DC](#promoting-the-server-to-dc)
+- [DHCP Configuration](#dhcp-configuration)
+- [Quality of Life Improvements](#quality-of-life-improvements)
+
+
 # Firewall Rules to Support the AD
 
 While I want the internal network to be isolated, I still want it to be able to access the internet for the purposes of updates or downloading scripts. The DC will also need access to NTP services and DNS services so that it can then provide those services to the rest of the domain.
