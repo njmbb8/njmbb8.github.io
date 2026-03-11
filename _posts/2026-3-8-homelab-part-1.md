@@ -30,9 +30,9 @@ I'm planning on performing web attacks as well as active directory attacks. I wa
 
 By my count, I need to create 4 virtual networks in Virt Manager and 2 VPNs in OPNSense which will come later. I disabled DHCP on all of them because OPNSense or the DC in the case of the internal subnet. DHCP is disabled in the management network because everything will be statically assigned. I'm using /24 IP ranges which may be a bit overkill for the few devices that I'm using, but I'm not hurting for free IP space and using the third octet as an identifier for which subnet is which is convenient for me.
 
-|     Name    |      subnet      |
-|:-----------:|:----------------:|
-|     mgmt    | 192.168.100.0/24 |
-|   attacker  |    10.0.1.0/24   |
-|     dmz     |    10.0.2.0/24   |
-| ad_internal |    10.0.3.0/24   |
+| Interface |     Name    |      subnet      |
+|-----------|:-----------:|:----------------:|
+| vtnet1    |     mgmt    | 192.168.100.0/24 |
+| vtnet2    |   attacker  |    10.0.1.0/24   |
+| vtnet3    |     dmz     |    10.0.2.0/24   |
+| vtnet4    | ad_internal |    10.0.3.0/24   |
