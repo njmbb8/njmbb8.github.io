@@ -75,6 +75,8 @@ I cloned the other VPN rule as well allowing traffic between the two subnets and
 
 ## Adding a Peer for the Kali Machine
 
-I used the peer generator as I had before and gave it access to 10.0.100.2/32(the Kali machine IP), and 10.0.3.0/24. After connecting and verifying that `sudo wg show` listed a handshake, I tried to ping the DC at 10.0.3.2 which was a success! I also ran enum4linux, an AD enumeration tool, against the domain IP with the DA credentials and was able to get accurate information. In the next blog post, I'll take a break from lab configuration and try setting up an AS-REP roastable user and exploiting it from Kali.
+I used the peer generator as I had before and gave it access to 10.0.100.2/32(the Kali machine IP), and 10.0.3.0/24. After connecting and verifying that `sudo wg show` listed a handshake, I tried to ping the DC at 10.0.3.2 which was a success! I also ran enum4linux, an AD enumeration tool, against the domain IP with the DA credentials and was able to get accurate information. 
 
 ![](/assets/img/ad_lab/part_three/domain_info.png)
+
+Technically, I have enough to start on the first AD attack that I want to document: AS-REP roasting. I do want to observe the attack from the blue team side though so the next thing that I'll be doing is creating a SIEM and then I can get to AS-REP roasting.
