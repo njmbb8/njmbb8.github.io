@@ -6,6 +6,12 @@ layout: default
 
 I want to be able to see what's going on from the defender's standpoint when I attack the network, so I'm adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on.
 
+- [Creating an Ubuntu VM](#creating-an-ubuntu-vm)
+- [Creating Firewall Rules to Support the SIEM's Traffic](#creating-firewall-rules-to-support-the-siems-traffic)
+- [Installing Wazuh AIO](#installing-wazuh-aio)
+- [Deploying a New Agent](#deploying-a-new-agent)
+
+
 # Creating an Ubuntu VM
 
 I used Ubuntu Server 24.04 which is the latest version that the Wazuh docs say is supported. I gave the VM resources according to the table provided in the Wazuh [quickstart](https://documentation.wazuh.com/current/quickstart.html).
