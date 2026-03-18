@@ -1,6 +1,7 @@
 ---
 title: "Virtual Active Directory Lab for Pentest Practice Part Three: Creating the Domain"
 author: "Nate McGraw"
+layout: default
 ---
 
 The Active directory network will follow a pretty typical lab setup with a vulnerable machine on the DMZ which is used to pivot to a domain controlled machine which is used to escalate privileges in the domain against the DC.

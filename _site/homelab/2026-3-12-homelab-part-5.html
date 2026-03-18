@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=eb9cabcd4b363910106548be1ef285241715c638">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Virtual Active Directory Lab for Pentest Practice Part Five: Creating the SIEM and Connecting an Agent | Nate McGraw’s Security Blog</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Virtual Active Directory Lab for Pentest Practice Part Five: Creating the SIEM and Connecting an Agent" />
+<meta name="author" content="Nate McGraw" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I want to be able to see what’s going on from the defender’s standpoint when I attack the network, so I’m adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on." />
+<meta property="og:description" content="I want to be able to see what’s going on from the defender’s standpoint when I attack the network, so I’m adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on." />
+<link rel="canonical" href="http://localhost:4000/homelab/2026-3-12-homelab-part-5.html" />
+<meta property="og:url" content="http://localhost:4000/homelab/2026-3-12-homelab-part-5.html" />
+<meta property="og:site_name" content="Nate McGraw’s Security Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-03-12T00:00:00-04:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Virtual Active Directory Lab for Pentest Practice Part Five: Creating the SIEM and Connecting an Agent" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nate McGraw"},"dateModified":"2026-03-12T00:00:00-04:00","datePublished":"2026-03-12T00:00:00-04:00","description":"I want to be able to see what’s going on from the defender’s standpoint when I attack the network, so I’m adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on.","headline":"Virtual Active Directory Lab for Pentest Practice Part Five: Creating the SIEM and Connecting an Agent","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/homelab/2026-3-12-homelab-part-5.html"},"url":"http://localhost:4000/homelab/2026-3-12-homelab-part-5.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Nate McGraw's Security Blog</h1>
+        </a>
+        <h2>Cybersecurity Writeups by Nate McGraw</h2>
+
+        <section id="downloads">
+            <a href="">Home</a>
+            <a href="/about.html">About Me</a>
+            <a href="https://github.com/njmbb8">Github</a>
+            <a href="https://www.linkedin.com/in/nate-mcgraw-521930176/">LinkedIn</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>I want to be able to see what’s going on from the defender’s standpoint when I attack the network, so I’m adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on.</p>
+
+<h1 id="creating-an-ubuntu-vm">Creating an Ubuntu VM</h1>
+
+<p>I used Ubuntu Server 24.04 which is the latest version that the Wazuh docs say is supported. I gave the VM resources according to the table provided in the Wazuh <a href="https://documentation.wazuh.com/current/quickstart.html">quickstart</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Agents</th>
+      <th style="text-align: center">CPU</th>
+      <th style="text-align: center">RAM</th>
+      <th>Storage (90 days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1-25</td>
+      <td style="text-align: center">4 vCPU</td>
+      <td style="text-align: center">8 GB</td>
+      <td>50 GB</td>
+    </tr>
+    <tr>
+      <td>25-50</td>
+      <td style="text-align: center">8 vCPU</td>
+      <td style="text-align: center">8 GB</td>
+      <td>100 GB</td>
+    </tr>
+    <tr>
+      <td>50-100</td>
+      <td style="text-align: center">8 vCPU</td>
+      <td style="text-align: center">8 GB</td>
+      <td>200 GB</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ubuntu defaulted to only allotting half of the storage to leave space for restore points to be stored, but I’m going to keep my own backups and I want all the space for the SIEM, so I gave all available space to the LVM.</p>
+
+<p><img src="/assets/img/ad_lab/part_five/ubuntu_storage.png" alt="" /></p>
+
+<p>I’m planning on 3 Agents at the moment and definitely nowhere close to 25, so I’m going with the minimum. During installation, I gave the machine a static IP address of 192.168.100.25. When I came to the Ubuntu archive mirror configuration, All hosts failed to resolve as no rules had been created to allow the traffic.</p>
+
+<h1 id="creating-firewall-rules-to-support-the-siems-traffic">Creating Firewall Rules to Support the SIEM’s Traffic</h1>
+
+<p>The SIEM is the only device on the mgmt network, so I made rules targeting its static IP specifically. If I don’t have a need for other devices to access the WAN, I’m not going to create a rule for it. I allowed HTTP, HTTPS, and DNS traffic which was enough to get the Ubuntu machine up and running.</p>
+
+<p><img src="/assets/img/ad_lab/part_five/mgmt_fw_rules.png" alt="" /></p>
+
+<p>I also created a floating rule which allowed traffic from the DMX or the internal AD network to the SIEM over TCP port 1514-1515 to allow for the actual log collection.</p>
+
+<h1 id="installing-wazuh-aio">Installing Wazuh AIO</h1>
+
+<p>Going back to the <a href="https://documentation.wazuh.com/current/quickstart.html">Wazuh quickstart</a>, the installation instructions are very simple: run <code class="language-plaintext highlighter-rouge">curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh &amp;&amp; sudo bash ./wazuh-install.sh -a</code>. This took a while to run, but once it finished, I was provided with access instructions for the Wazuh Web UI.</p>
+
+<p><img src="/assets/img/ad_lab/part_five/wazuh_instructions.png" alt="" /></p>
+
+<p>Opening https://192.168.100.25/ from the host while connected to the management VPN gives me a Wazuh login screen where I was able to log in with the provided credentials and then change the admin account’s password. That’s it, Wazuh is set up and ready to receive logs.</p>
+
+<h1 id="deploying-a-new-agent">Deploying a New Agent</h1>
+
+<p>Wazuh makes deploying agents super easy too. I clicked the “Deploy an Agent” button and filled in info about the target (the DC will be the first agent) and was provided with a PowerShell one-liner to install the agent and begin collection.
+After starting the WazuhSvc service, I can see the agent show up in the web interface.</p>
+
+<p><img src="/assets/img/ad_lab/part_five/connected_agent.png" alt="" /></p>
+
+      </section>
+    </div>
+  </body>
+</html>

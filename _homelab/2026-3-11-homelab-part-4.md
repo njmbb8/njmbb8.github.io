@@ -1,6 +1,7 @@
 ---
 title: "Virtual Active Directory Lab for Pentest Practice Part Four: Creating the Kali Attack Machine"
 author: "Nate McGraw"
+layout: default
 ---
 
 Now that the DC and domain are up, we can create the Kali machine and a VPN to connect to so that attacks against the DC could be performed, and I can get a bit of a reward by having some fun.

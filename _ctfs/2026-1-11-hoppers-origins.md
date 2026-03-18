@@ -1,6 +1,7 @@
 ---
 title: "Advent of Cyber 2025 Sidequest 0: Hopper's Origins"
 author: "Nate McGraw"
+layout: default
 ---
 
 This one was a doozy with an appropriate difficulty rating of "Insane". Accessing the room was a challenge in and of itself, and the only IP address you're given, .250, is off limits! This room required techniques from multiple toolboxes including web app, active directory, linux & windows privilege escalation, and tunneling through multiple domains and subdomains.

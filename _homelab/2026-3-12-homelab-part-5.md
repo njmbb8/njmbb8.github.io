@@ -1,6 +1,7 @@
 ---
 title: "Virtual Active Directory Lab for Pentest Practice Part Five: Creating the SIEM and Connecting an Agent"
 author: "Nate McGraw"
+layout: default
 ---
 
 I want to be able to see what's going on from the defender's standpoint when I attack the network, so I'm adding a SIEM which will live in the management subnet with collectors in the DMZ and the internal subnets which will require more firewall rules to support. The first step is to create an Ubuntu VM to install Wazuh on.

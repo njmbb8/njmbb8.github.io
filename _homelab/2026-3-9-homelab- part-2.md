@@ -1,6 +1,7 @@
 ---
 title: "Virtual Active Directory Lab for Pentest Practice Part Two: Creating and Configuring the Firewall"
 author: "Nate McGraw"
+layout: default
 ---
 
 - [Creating the VM and installing OPNSense](#creating-the-vm-and-installing-opnsense)

@@ -1,6 +1,7 @@
 ---
 title: "Virtual Active Directory Lab for Pentest Practice Part One: Designing and creating the network"
 author: "Nate McGraw"
+layout: default
 ---
 
 While practicing for Zero Point Security's CRTO course, I felt a need to create an environment where I could practice the TTP's that I learned in the course without a timer. I also wanted to practice attacks not covered in the course such as ADCS abuse.
