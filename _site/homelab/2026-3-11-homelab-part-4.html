@@ -1,0 +1,84 @@
+<p>Now that the DC and domain are up, we can create the Kali machine and a VPN to connect to so that attacks against the DC could be performed, and I can get a bit of a reward by having some fun.</p>
+
+<ul>
+  <li><a href="#creating-the-vm">Creating the VM</a></li>
+  <li><a href="#enabling-dhcp-in-opnsense">Enabling DHCP in OPNSense</a></li>
+  <li><a href="#creating-an-allow-all-firewall-rule-for-the-attacker-subnet">Creating an “Allow All” Firewall Rule for the Attacker Subnet</a></li>
+  <li><a href="#building-the-environment">Building the Environment</a>
+    <ul>
+      <li><a href="#update-and-upgrade">Update and Upgrade</a></li>
+      <li><a href="#guest-agent">Guest Agent</a></li>
+      <li><a href="#sliver-c2">Sliver C2</a></li>
+      <li><a href="#wireguard">Wireguard</a></li>
+    </ul>
+  </li>
+  <li><a href="#creating-the-vpn-to-grant-access-to-the-internal-network">Creating the VPN to Grant Access to the Internal Network</a>
+    <ul>
+      <li><a href="#creating-the-new-instance">Creating the New Instance</a></li>
+      <li><a href="#creating-the-firewall-rules">Creating the Firewall Rules</a></li>
+      <li><a href="#adding-a-peer-for-the-kali-machine">Adding a Peer for the Kali Machine</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="creating-the-vm">Creating the VM</h1>
+
+<p>I added the latest Kali image to a new VM and gave the VM two interfaces. One for the default WAN network to reach the internet without going through OPNSense if I’m doing bug bounty of CTF. The second interface is for the attacker network, the simulated WAN that the Kali machine will access the DMZ from.</p>
+
+<p>I was having issues with the Kali interfaces keeping their DHCP assignments, so I set each interface to be of model e1000e which solved the issue for me. Apparently the driver is more reliable.</p>
+
+<h1 id="enabling-dhcp-in-opnsense">Enabling DHCP in OPNSense</h1>
+
+<p>I spent a lot of time troubleshooting why DHCP requests were working for the WAN interface but not for the attacker_net interface. I eventually found that in OPNSense, the DHCP service needs to be told what interfaces to listen on, so I configured it to listen on all interfaces that are using OPNSense for a DHCP server. I also added a DHCP option to create a classless static route for any machine on the subnet.</p>
+
+<p><img src="/assets/img/ad_lab/part_three/DHCP_Options.png" alt="" /></p>
+
+<h1 id="creating-an-allow-all-firewall-rule-for-the-attacker-subnet">Creating an “Allow All” Firewall Rule for the Attacker Subnet</h1>
+
+<p>The network that Kali is on should mimic a WAN, so I’m creating an allow all rule on the attacker_net subnet so that there are no restrictions on what the attacker can send or receive, as in a real world scenario.</p>
+
+<h1 id="building-the-environment">Building the Environment</h1>
+
+<p>Kali comes with a great deal of pentesting tools already, but there are two additions that I already know that I am going to need to make:</p>
+
+<h2 id="update-and-upgrade">Update and Upgrade</h2>
+
+<p>The first thing is to make sure that I’m running with the latest and greatest tools. so I’m going to run <code class="language-plaintext highlighter-rouge">sudo apt update &amp;&amp; sudo apt upgrade -y</code>. This predictably took quite a while, so I went to grab a Red Bull and let the puppy out.</p>
+
+<h2 id="guest-agent">Guest Agent</h2>
+
+<p>Just like I did with the DC, I am going to install tools to allow clipboard sharing and dynamic screen sizing. I ran <code class="language-plaintext highlighter-rouge">sudo apt install -y qemu-guest-agent spice-vdagent xserver-xorg-video-qxl</code> and then rebooted which gave me the abiltiy to enable the “Auto resize VM with window” and enabled the shared clipboard.</p>
+
+<h2 id="sliver-c2">Sliver C2</h2>
+
+<p>I recently finished up with Zero Point Security’s CRTO course which made heavy use of the Cobalt Strike C2 framework. While working in this lab, I would like to keep my attacks as modern as possible, but I do not have Cobalt Strike money. From my research, Sliver is going to be the best alternative.</p>
+
+<p>In Kali, installing Sliver is really easy: <code class="language-plaintext highlighter-rouge">sudo apt install -y sliver</code>. I will go into depth on how to use Sliver in a future blog post but for now, as long as it’s installed I can move on.</p>
+
+<h2 id="wireguard">Wireguard</h2>
+
+<p>I want to have a VPN connection that optionally gives the Kali machine direct access to the internal network with the AD on it. I’m using WireGuard to handle my VPN needs for this lab, so it will be installed on this machine.</p>
+
+<h1 id="creating-the-vpn-to-grant-access-to-the-internal-network">Creating the VPN to Grant Access to the Internal Network</h1>
+
+<p>I have to go through creating another VPN. It should be a little easier the second time. Create a VPN instance, assign and enable the interface, create some allow rules in the firewall and generate a peer. EZPZ right?</p>
+
+<h2 id="creating-the-new-instance">Creating the New Instance</h2>
+
+<p>Pretty standard process here, I gave it a Tunnel Address of 10.0.100.1/24 and a listening port of 51821</p>
+
+<h2 id="creating-the-firewall-rules">Creating the Firewall Rules</h2>
+
+<p>I started by cloning the existing handshake rule and changing the port to fit my new instance’s listening port which was 51821. i also hanged the source IP address to be the Kali machine’s IP address.</p>
+
+<p>I cloned the other VPN rule as well allowing traffic between the two subnets and modified it to work with different subnets.</p>
+
+<p><img src="/assets/img/ad_lab/part_three/FW_RULES.png" alt="" /></p>
+
+<h2 id="adding-a-peer-for-the-kali-machine">Adding a Peer for the Kali Machine</h2>
+
+<p>I used the peer generator as I had before and gave it access to 10.0.100.2/32(the Kali machine IP), and 10.0.3.0/24. After connecting and verifying that <code class="language-plaintext highlighter-rouge">sudo wg show</code> listed a handshake, I tried to ping the DC at 10.0.3.2 which was a success! I also ran enum4linux, an AD enumeration tool, against the domain IP with the DA credentials and was able to get accurate information.</p>
+
+<p><img src="/assets/img/ad_lab/part_three/domain_info.png" alt="" /></p>
+
+<p>Technically, I have enough to start on the first AD attack that I want to document: AS-REP roasting. I do want to observe the attack from the blue team side though so the next thing that I’ll be doing is creating a SIEM and then I can get to AS-REP roasting.</p>
