@@ -11,8 +11,9 @@ Now that the DC and domain are up, we can create the Kali machine and a VPN to c
 - [Creating an "Allow All" Firewall Rule for the Attacker Subnet](#creating-an-allow-all-firewall-rule-for-the-attacker-subnet)
 - [Building the Environment](#building-the-environment)
   - [Update and Upgrade](#update-and-upgrade)
+  - [Seclists](#seclists)
   - [Guest Agent](#guest-agent)
-  - [Sliver C2](#sliver-c2)
+  - [Adaptix C2](#adaptix-c2)
   - [Wireguard](#wireguard)
 - [Creating the VPN to Grant Access to the Internal Network](#creating-the-vpn-to-grant-access-to-the-internal-network)
   - [Creating the New Instance](#creating-the-new-instance)
@@ -44,15 +45,19 @@ Kali comes with a great deal of pentesting tools already, but there are two addi
 
 The first thing is to make sure that I'm running with the latest and greatest tools. so I'm going to run `sudo apt update && sudo apt upgrade -y`. This predictably took quite a while, so I went to grab a Red Bull and let the puppy out.
 
+## Seclists
+
+[Seclists](https://github.com/danielmiessler/SecLists) is a great resource that provides the attacker with wordlists for not just password cracking but directory bruteforcing, Fuzzing, and more! The lists are available as a package which can be installed with `sudo apt install -y seclists`. Once it is installed, the lists will be available at `/usr/share/wordlists/seclists/`
+
 ## Guest Agent
 
 Just like I did with the DC, I am going to install tools to allow clipboard sharing and dynamic screen sizing. I ran `sudo apt install -y qemu-guest-agent spice-vdagent xserver-xorg-video-qxl` and then rebooted which gave me the abiltiy to enable the "Auto resize VM with window" and enabled the shared clipboard.
 
-## Sliver C2
+## Adaptix C2
 
-I recently finished up with Zero Point Security's CRTO course which made heavy use of the Cobalt Strike C2 framework. While working in this lab, I would like to keep my attacks as modern as possible, but I do not have Cobalt Strike money. From my research, Sliver is going to be the best alternative. 
+I recently finished up with Zero Point Security's CRTO course which made heavy use of the Cobalt Strike C2 framework. While working in this lab, I would like to keep my attacks as modern as possible, but I do not have Cobalt Strike money. From my research, Adaptix is going to be the best alternative. 
 
-In Kali, installing Sliver is really easy: `sudo apt install -y sliver`. I will go into depth on how to use Sliver in a future blog post but for now, as long as it's installed I can move on.
+In Kali, installing Adaptix is really easy: `sudo apt install -y adaptixc2`. I will go into depth on how to use adaptix in a future blog post but for now, as long as it's installed I can move on.
 
 ## Wireguard
 
