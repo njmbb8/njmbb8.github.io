@@ -4,6 +4,11 @@ author: "Nate McGraw"
 layout: default
 ---
 
+- [Installing and Configuring the Plugin](#installing-and-configuring-the-plugin)
+- [Configuring Suricata](#configuring-suricata)
+- [Detecting an Nmap Scan](#detecting-an-nmap-scan)
+
+
 I want the Wazuh SIEM to be able to detect and monitor network traffic as well which will give visibility into techniques like port scanning and DNS poisoning. Fortunately, there is a Wazuh agent plugin available for OPNSense which is available to install.
 
 # Installing and Configuring the Plugin
