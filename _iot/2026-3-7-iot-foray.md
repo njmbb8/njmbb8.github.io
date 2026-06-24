@@ -4,6 +4,16 @@ author: "Nate McGraw"
 layout: default
 ---
 
+- [A Foray into IoT Hacking: The Arris DG3270a](#a-foray-into-iot-hacking-the-arris-dg3270a)
+  - [Analyzing the Board: Finding Physical Access Points](#analyzing-the-board-finding-physical-access-points)
+  - [Connecting to the second UART interface](#connecting-to-the-second-uart-interface)
+  - [Other interfaces](#other-interfaces)
+  - [Attacks over Ethernet](#attacks-over-ethernet)
+  - [Getting a Root Shell and Dumping the Firmware](#getting-a-root-shell-and-dumping-the-firmware)
+  - [Modifying the Firmware](#modifying-the-firmware)
+  - [To Do:](#to-do)
+
+
 # A Foray into IoT Hacking: The Arris DG3270a
 
 Having recently completed the Red Team Operator course and achieving the certification, I found myself wanting to get away from network penetration testing for a spell and branch out into an area that I've always found interesting but never really jumped into: the land of IoT hacking. After some research on how to get into the field with minimal investment, I found the [Damn Vulnerable IoT Device](https://github.com/hackervegas001/damn-vulnerable-iot-devices-dvid) which, as far as I can tell, has been abandoned. Thankfully, the project is open source, and I was able to send the Gerber files off to have the PCB printed and there was enough information in the parts list to order suitable components to build one.
@@ -43,7 +53,7 @@ Press 'Enter' within 0 seconds to disable automatic boot.
 Hit a key to start the shell...
 ```
 
-And I tried everything from spamming the enter key to writing a python script to send the enter key when that line is sent. I also tried targeting the next line with various values being sent. No shell was able to be launch. It looks like Arris has really locked down there UART interfaces which is consistent with the experience of other users attempting to break into Arris devices.ADD RELEVANT REDDIT POST HERE
+And I tried everything from spamming the enter key to writing a python script to send the enter key when that line is sent. I also tried targeting the next line with various values being sent. No shell was able to be launch. It looks like Arris has really locked down there UART interfaces which is consistent with the experience of [other users attempting to break into Arris devices.](https://www.reddit.com/r/ReverseEngineering/comments/1a68vq/so_i_got_a_uart_and_cracked_open_an_arris_wbm760a/?solution=cdcf5b299f731e03cdcf5b299f731e03&js_challenge=1&token=7afd7253fec22262ff1c52b1703fe9ec9e3702dd03354513e4d08df66910f551&jsc_orig_r=)
 
 ## Other interfaces
 
@@ -63,7 +73,7 @@ I was able to use the credentials from the user manual to sign in and at this po
 
 ![](/assets/img/IoT/exploit.png)
 
-# Getting a Root Shell and Dumping the Firmware
+## Getting a Root Shell and Dumping the Firmware
 
 Great, I have a shell on the device and I have the # line header that indicates a root shell. In the limited environment that I'm in, there is no `whoami` command but `id` returns 0 which verifies that I am the root user. Despite my high level of access, I don't seem to be able to create new files or make any changes to the file system. I do have unfettered read and execute access though.
 
