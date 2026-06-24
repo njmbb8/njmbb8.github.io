@@ -105,6 +105,8 @@ In the case of this router, the well known password generation routine is not ge
 
 Another interesting finding was in the `cli` binary which shows that if I create a file at /nvram/fastboot containing the character '1', I can reboot into RDK-B mode which might also grant me more access to sensitive information on the device, however, it's also clear that the device would not be able to go back to normal unless it was put into debug mode and then rebooted. This will also require further research.
 
+![](/assets/img/IoT/rdk-b.png)
+
 One final path forward would be to either modify the CLI binary to not deny me access, load it into the /nvram directory and run it from there. While I'm going down that path, I could also try creating my own binary which would use the libraies already on the system to access the nvram like any other binary and then dumping it to get those values. Modifying the values directly may also worth a shot.
 
 All of this and more in the upcoming part 2 to this post!
