@@ -63,6 +63,8 @@ Having decided to put UART attacks on the shelf for now, I went to focus on othe
 
 I started by connecting my computer directly to the router via Ethernet where I was assigned an IP address by the router's dhcp server. I first tried to spoof my MAC address to the ones in the boot up printout which caused me to lose the connection. I tried changing the last bytes of the MAC to keep the vendor the same but avoid collisions and that also did not get me a successful connection, so I reverted my MAC and ran an Nmap scan with some interesting results. 
 
+![alt text](/assets/img/IoT/nmap.png)
+
 There are not one, not two, but three web servers running on the router on TCP ports 80, 443, and 8080. The web server hosted on port 80 is a status page for the router where you can also access logs, see version information, etc. Of note on this page is the Advanced tab which asks for a password and the Wireless tab which takes you to the web server on port 8080.
 
 ![](/assets/img/IoT/web_interface.png)
