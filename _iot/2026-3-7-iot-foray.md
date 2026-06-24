@@ -1,3 +1,9 @@
+---
+title: "A Foray into IoT Hacking: The Arris DG3270a: part 1"
+author: "Nate McGraw"
+layout: default
+---
+
 # A Foray into IoT Hacking: The Arris DG3270a
 
 Having recently completed the Red Team Operator course and achieving the certification, I found myself wanting to get away from network penetration testing for a spell and branch out into an area that I've always found interesting but never really jumped into: the land of IoT hacking. After some research on how to get into the field with minimal investment, I found the [Damn Vulnerable IoT Device](https://github.com/hackervegas001/damn-vulnerable-iot-devices-dvid) which, as far as I can tell, has been abandoned. Thankfully, the project is open source, and I was able to send the Gerber files off to have the PCB printed and there was enough information in the parts list to order suitable components to build one.
