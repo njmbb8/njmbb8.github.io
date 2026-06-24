@@ -38,6 +38,8 @@ collections:
     output: true
   ctfs:
     output: true
+  iot:
+    output: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.
