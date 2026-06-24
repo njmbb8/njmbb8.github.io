@@ -7,6 +7,9 @@ I'm Nate McGraw, an Offensive Security Certified Professional(OSCP) based out of
 
 ## Collections
 
+## [IoT and Hardware Hacking](./iot.md)
+Come see me poke around at physical devices.
+
 ## [Home Lab Series](./homelab.html)
 Follow the progress of my Home Lab including the creation of an OPNSense Firewall, an Active Directory network and a Wazuh SIEM.
 
